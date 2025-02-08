@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('./db');
 const cors = require('cors');
 const morgan = require('morgan');
+const logger = require('./middleware/logger');
 
 const app = express();
 app.use(express.json());
