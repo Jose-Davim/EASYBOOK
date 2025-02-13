@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 
 const ServiceSchema = new mongoose.Schema({
-    name: String,
+    name: { type: String, required: true },
+    category: { type: String, enum: ['restaurant', 'hairdresser', 'gym'], required: true },
     description: String,
-    category: { type: String, enum: ['restaurant', 'gym', 'hairdresser'] },
-    duration: Number,
-    price: Number,
+    duration: Number, // Duração do serviço em minutos
     location: String,
-    images: [String]
+    image: String,
+    ratings: { type: Number, default: 0 },
 });
 
 module.exports = mongoose.model('Service', ServiceSchema);

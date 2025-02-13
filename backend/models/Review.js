@@ -1,11 +1,17 @@
 const mongoose = require('mongoose');
 
 const ReviewSchema = new mongoose.Schema({
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    service: { type: mongoose.Schema.Types.ObjectId, ref: 'Service' },
-    rating: { type: Number, min: 1, max: 5 },
-    comment: String,
-    date: { type: Date, default: Date.now }
+  serviceId: { type: mongoose.Schema.Types.ObjectId, ref: "Service", required: true },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  comment: String,
+  rating: { type: Number, required: true }
 });
 
-module.exports = mongoose.model('Review', ReviewSchema);
+ReviewSchema.post("save", async function () {
+  const reviews = await this.model("Review").find({ serviceId: this.serviceId });
+  const avgRating = reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
+
+  await this.model("Service").findByIdAndUpdate(this.serviceId, { ratings: avgRating });
+});
+
+module.exports = mongoose.model("Review", ReviewSchema);

@@ -1,5 +1,6 @@
-const Review = require('../models/Review');
+const Review = require('../Models/Review');
 
+// Obter todas as avaliações
 exports.getReviews = async (req, res) => {
     try {
         const reviews = await Review.find().populate('service user');
@@ -9,6 +10,7 @@ exports.getReviews = async (req, res) => {
     }
 };
 
+// Criar uma avaliação
 exports.createReview = async (req, res) => {
     try {
         const { service, rating, comment } = req.body;

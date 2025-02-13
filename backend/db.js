@@ -1,9 +1,12 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://scorpsgama:Beep4682e@testprojeto.g9tyb.mongodb.net/Projeto', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => console.log('MongoDB conectado'))
-  .catch(err => console.error('Erro na conexão MongoDB:', err));
+var mongoURL = 'mongodb+srv://scorpsgama:Beep4682e@tdwpsw.ngkrr.mongodb.net/TDWPSW';
 
-module.exports = mongoose;
+mongoose.connect(mongoURL, { useUnifiedTopology: true, useNewUrlParser: true });
+
+mongoose.connect(mongoURL, { 
+    useNewUrlParser: true, 
+    useUnifiedTopology: true 
+  })
+  .then(() => console.log("MongoDB Connected"))
+  .catch(err => console.log("MongoDB Connection Error:", err));
